@@ -39,7 +39,7 @@ use CommonDBTM;
  */
 class Provider_Profile extends CommonDBTM
 {
-    public static $rightname = 'plugin_singlesignon_provider';
+    public static string $rightname = 'plugin_singlesignon_provider';
 
     public static function getTable($classname = null): string
     {

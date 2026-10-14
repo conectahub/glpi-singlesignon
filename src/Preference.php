@@ -37,8 +37,8 @@ use User;
 
 class Preference extends CommonDBTM
 {
-    protected static $notable = true;
-    public static $rightname = '';
+    protected static bool $notable = true;
+    public static string $rightname = '';
 
     // Provider data
     public $user_id = null;

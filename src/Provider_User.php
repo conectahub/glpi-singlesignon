@@ -31,9 +31,9 @@ use CommonDBRelation;
 class Provider_User extends CommonDBRelation
 {
     // From CommonDBRelation
-    public static $itemtype_1   = Provider::class;
-    public static $items_id_1   = 'plugin_singlesignon_providers_id';
+    public static ?string $itemtype_1   = Provider::class;
+    public static ?string $items_id_1   = 'plugin_singlesignon_providers_id';
 
-    public static $itemtype_2 = 'User';
-    public static $items_id_2 = 'users_id';
+    public static ?string $itemtype_2 = 'User';
+    public static ?string $items_id_2 = 'users_id';
 }

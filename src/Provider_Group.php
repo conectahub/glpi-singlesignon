@@ -56,11 +56,11 @@ class Provider_Group extends CommonDBRelation
     public static $table = 'glpi_plugin_singlesignon_providers_groups';
 
     // From CommonDBRelation
-    public static $itemtype_1 = Provider_Role::class;
-    public static $items_id_1 = 'plugin_singlesignon_providers_roles_id';
+    public static ?string $itemtype_1 = Provider_Role::class;
+    public static ?string $items_id_1 = 'plugin_singlesignon_providers_roles_id';
 
-    public static $itemtype_2 = 'User';
-    public static $items_id_2 = 'users_id';
+    public static ?string $itemtype_2 = 'User';
+    public static ?string $items_id_2 = 'users_id';
 
     // ─────────────────────────────────────────────────────────────────────────
     // Public entry points

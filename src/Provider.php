@@ -79,8 +79,9 @@ class Provider extends CommonDBTM
     public const AUTH_HEADER_DISABLED = 'disabled';
 
     // From CommonDBTM
-    public $dohistory = true;
-    public static $rightname = 'config';
+    // GLPI 12 tipou CommonDBTM::$dohistory como bool; a subclasse precisa casar o tipo.
+    public bool $dohistory = true;
+    public static string $rightname = 'config';
 
     private $toSessionSave = ['glpi_singlesignon_redirect'];
 

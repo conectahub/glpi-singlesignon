@@ -35,7 +35,7 @@ use Session;
 
 class Provider_Field extends CommonDBTM
 {
-    public static $rightname = 'config';
+    public static string $rightname = 'config';
 
     public static function getTypeName($nb = 0)
     {
