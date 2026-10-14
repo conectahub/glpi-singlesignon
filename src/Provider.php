@@ -1117,7 +1117,7 @@ class Provider extends CommonDBTM
         $url = $this->getAccessTokenUrl();
 
         $msgerr = null;
-        $content = Toolbox::callCurl($url, $this->buildCurlOptions([
+        $content = ToolboxPlugin::callCurl($url, $this->buildCurlOptions([
             CURLOPT_HTTPHEADER => [
                 "Accept: application/json",
             ],
@@ -1184,7 +1184,7 @@ class Provider extends CommonDBTM
 
         $headers = $this->buildResourceOwnerHeaders($token);
 
-        $content = Toolbox::callCurl($url, $this->buildCurlOptions([
+        $content = ToolboxPlugin::callCurl($url, $this->buildCurlOptions([
             CURLOPT_HTTPHEADER => $headers,
         ]));
 
@@ -1198,7 +1198,7 @@ class Provider extends CommonDBTM
 
         if ($this->getClientType() === "linkedin") {
             $email_url = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))";
-            $content = Toolbox::callCurl($email_url, $this->buildCurlOptions([
+            $content = ToolboxPlugin::callCurl($email_url, $this->buildCurlOptions([
                 CURLOPT_HTTPHEADER => $headers,
             ]));
 
@@ -2519,7 +2519,7 @@ class Provider extends CommonDBTM
      */
     private function fetchOAuthPhotoContent(string $url, array $headers): ?string
     {
-        $img = Toolbox::callCurl($url, $this->buildCurlOptions([
+        $img = ToolboxPlugin::callCurl($url, $this->buildCurlOptions([
             CURLOPT_HTTPHEADER => $headers,
         ]));
 

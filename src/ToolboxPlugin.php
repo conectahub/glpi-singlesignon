@@ -458,4 +458,54 @@ class ToolboxPlugin
             ),
         );
     }
+
+    /**
+     * Substituto do Toolbox::callCurl() removido no GLPI 12. Executa uma
+     * requisicao cURL preservando o contrato usado pelo fluxo OAuth
+     * ($url, array de CURLOPT_*, &$msgerr) e aplica o proxy do GLPI se
+     * configurado. Retorna o corpo da resposta, ou false em erro de transporte.
+     *
+     * @param array<int,mixed> $curlopts
+     * @return string|false
+     */
+    public static function callCurl(string $url, array $curlopts = [], ?string &$msgerr = null)
+    {
+        /** @var array $CFG_GLPI */
+        global $CFG_GLPI;
+
+        $msgerr = null;
+        $ch = curl_init();
+
+        curl_setopt_array($ch, [
+            CURLOPT_URL            => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_TIMEOUT        => 30,
+        ]);
+
+        if (!empty($CFG_GLPI['proxy_name'])) {
+            curl_setopt($ch, CURLOPT_PROXY, $CFG_GLPI['proxy_name']);
+            if (!empty($CFG_GLPI['proxy_port'])) {
+                curl_setopt($ch, CURLOPT_PROXYPORT, (int) $CFG_GLPI['proxy_port']);
+            }
+            if (!empty($CFG_GLPI['proxy_user'])) {
+                curl_setopt(
+                    $ch,
+                    CURLOPT_PROXYUSERPWD,
+                    $CFG_GLPI['proxy_user'] . ':' . ($CFG_GLPI['proxy_passwd'] ?? '')
+                );
+            }
+        }
+
+        // Opcoes especificas da chamada sobrescrevem os defaults.
+        curl_setopt_array($ch, $curlopts);
+
+        $content = curl_exec($ch);
+        if ($content === false) {
+            $msgerr = curl_error($ch);
+        }
+        curl_close($ch);
+
+        return $content;
+    }
 }
